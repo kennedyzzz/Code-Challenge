@@ -10,3 +10,8 @@ Title: Code Challenge week 1
 Copyright (c) 2024.
 
 Technology used:JavaScript
+
+
+
+
+

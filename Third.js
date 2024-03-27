@@ -2,7 +2,7 @@ const readline = require('readline');
 
 function calculateTax(income){
 
-    
+    //defining taxslabs provided
     const taxSlabs= [
         
         {limit: 24000, rate: 0.1},
@@ -17,7 +17,7 @@ function calculateTax(income){
     let remainIncome = income;
 
     for (const slab of taxSlabs){
-        
+    //calculate taxable amount within the current slab    
         if(remainIncome <=0) break;
         const taxableAmount =Math.min(remainIncome, slab.limit);
          tax+= taxableAmount *slab.rate;
@@ -27,7 +27,7 @@ function calculateTax(income){
 
     return tax;
 }
-
+//defining NHIF rates
 function calculateNHIFDeductions(grossPay){
     const nhifRates = [
         {limit:5999, deduction: 150},
@@ -45,7 +45,7 @@ function calculateNHIFDeductions(grossPay){
    return nhifRates[nhifRates.length - 1].deduction;
 
 }
-
+// defining nssf rates
 function calculateNSSFContributions(pensionPay){
     
     const tierIRate = 0.06;
@@ -56,13 +56,14 @@ if(pensionPay <= tierIILowestLimit){
      return tierIILowestLimit * tierIRate;
 }
 }
-
+//caluculation of the net salary equation
 function calculateNetSalary(basicSalary, benefits){
     
     const grossSalary = basicSalary + benefits;
     const tax = calculateTax(grossSalary);
     const NHIFDeductions = calculateNHIFDeductions(grossSalary);
     const NSSFDeductions = calculateNSSFContributions(basicSalary);
+    //final net salary equation after 
     const netSalary = grossSalary - tax - NHIFDeductions - NSSFDeductions;
 
     return{
@@ -73,7 +74,7 @@ function calculateNetSalary(basicSalary, benefits){
         netSalary
     };
 }
-
+//function to get the user input on the terminal
 function getUserInput(question){
     const rl = readline.createInterface({
         input: process.stdin,
@@ -101,3 +102,4 @@ async function run(){
  }
 
  run();
+//type in the salary and the benefit and calculation will be done
